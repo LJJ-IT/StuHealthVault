@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liulin.system.dao.MedicalRecordDao">
+
+
+    <select id="queryById" resultType="com.liulin.system.entity.MedicalRecord">
+        select
+          record_id, student_id, doctor_name, visit_time, diagnosis, prescription
+        from health.medical_record
+        where record_id = #{recordId}
+    </select>
+
+    <insert id="insert" parameterType="com.liulin.system.entity.MedicalRecord"
+            useGeneratedKeys="true" keyProperty="recordId">
+        INSERT INTO medical_record
+            (student_id, doctor_name, visit_time, diagnosis, prescription)
+        VALUES
+            (#{studentId}, #{doctorName}, #{visitTime}, #{diagnosis}, #{prescription})
+
+    </insert>
+
+    <update id="update" parameterType="com.liulin.system.entity.MedicalRecord">
+        UPDATE medical_record
+        <set>
+            <if test="studentId != null">student_id = #{studentId},</if>
+            <if test="doctorName != null">doctor_name = #{doctorName},</if>
+            <if test="visitTime != null">visit_time = #{visitTime},</if>
+            <if test="diagnosis != null">diagnosis = #{diagnosis},</if>
+            <if test="prescription != null">prescription = #{prescription},</if>
+        </set>
+        WHERE record_id = #{recordId}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM medical_record WHERE record_id = #{recordId}
+    </delete>
+</mapper>
+

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>体检管理</title>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.6.8/css/layui.css">
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <fieldset class="layui-elem-field">
+                <legend>体检记录管理</legend>
+                <div class="layui-field-box">
+                    <!-- 选项卡 -->
+                    <div class="layui-tab layui-tab-brief">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">查询记录</li>
+                            <li>添加记录</li>
+                            <li>修改记录</li>
+                            <li>删除记录</li>
+                        </ul>
+                        <div class="layui-tab-content">
+                            <!-- 查询 -->
+                            <div class="layui-tab-item layui-show">
+                                <form class="layui-form">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">记录ID</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="recordId" required lay-verify="required" placeholder="请输入记录ID" class="layui-input">
+                                        </div>
+                                        <button class="layui-btn" lay-submit lay-filter="search">查询</button>
+                                    </div>
+                                </form>
+                                <div id="searchResult" style="display: none; margin-top: 20px;">
+                                    <table class="layui-table">
+                                        <colgroup>
+                                            <col width="100">
+                                            <col width="100">
+                                            <col width="80">
+                                            <col width="80">
+                                            <col width="80">
+                                            <col width="120">
+                                        </colgroup>
+                                        <thead>
+                                        <tr>
+                                            <th>记录ID</th>
+                                            <th>学生ID</th>
+                                            <th>身高(cm)</th>
+                                            <th>体重(kg)</th>
+                                            <th>胸围(cm)</th>
+                                            <th>测量日期</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="resultBody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- 添加 -->
+                            <div class="layui-tab-item">
+                                <form class="layui-form" id="addForm">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">学生ID</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="studentId" required lay-verify="required|number" placeholder="请输入学生ID" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">身高(cm)</label>
+                                        <div class="layui-input-block">
+                                            <input type="number" name="height" required lay-verify="required|number" placeholder="请输入身高" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">体重(kg)</label>
+                                        <div class="layui-input-block">
+                                            <input type="number" name="weight" required lay-verify="required|number" placeholder="请输入体重" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">胸围(cm)</label>
+                                        <div class="layui-input-block">
+                                            <input type="number" name="chest" required lay-verify="required|number" placeholder="请输入胸围" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <button class="layui-btn" lay-submit lay-filter="add">提交</button>
+                                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- 修改 -->
+                            <div class="layui-tab-item">
+                                <form class="layui-form" id="updateForm">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">记录ID</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="recordId" required lay-verify="required" placeholder="请输入记录ID" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">学生ID</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="studentId" lay-verify="number" placeholder="请输入学生ID" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">身高(cm)</label>
+                                        <div class="layui-input-block">
+                                            <input type="number" name="height" lay-verify="number" placeholder="请输入身高" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">体重(kg)</label>
+                                        <div class="layui-input-block">
+                                            <input type="number" name="weight" lay-verify="number" placeholder="请输入体重" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">胸围(cm)</label>
+                                        <div class="layui-input-block">
+                                            <input type="number" name="chest" lay-verify="number" placeholder="请输入胸围" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <button class="layui-btn" lay-submit lay-filter="update">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- 删除 -->
+                            <div class="layui-tab-item">
+                                <form class="layui-form">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">记录ID</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="recordId" required lay-verify="required" placeholder="请输入记录ID" class="layui-input">
+                                        </div>
+                                        <button class="layui-btn layui-btn-danger" lay-submit lay-filter="delete">删除</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.layuicdn.com/layui/layui.js"></script>
+<script>
+    layui.use(['form', 'layer'], function(){
+        var form = layui.form;
+        var layer = layui.layer;
+        var $ = layui.jquery;
+
+        // 查询记录
+        form.on('submit(search)', function(data){
+            $.ajax({
+                url: '/healthRecord/' + data.field.recordId,
+                type: 'GET',
+                success: function(res){
+                    if(res) {
+                        var html = '<tr>' +
+                            '<td>' + res.recordId + '</td>' +
+                            '<td>' + res.studentId + '</td>' +
+                            '<td>' + res.height + '</td>' +
+                            '<td>' + res.weight + '</td>' +
+                            '<td>' + res.chest + '</td>' +
+                            '<td>' + res.measureDate + '</td>' +
+                            '</tr>';
+                        $('#resultBody').html(html);
+                        $('#searchResult').show();
+                    } else {
+                        layer.msg('未找到该记录');
+                    }
+                },
+                error: function(){
+                    layer.msg('查询失败');
+                }
+            });
+            return false;
+        });
+
+        // 添加记录
+        form.on('submit(add)', function(data){
+
+            $.ajax({
+                url: '/healthRecord/add',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data.field),
+                success: function(res){
+                    layer.msg('添加成功', {icon: 1});
+                    $('#addForm')[0].reset();
+                },
+                error: function(){
+                    layer.msg('添加失败', {icon: 2});
+                }
+            });
+            return false;
+        });
+
+        // 修改记录
+        form.on('submit(update)', function(data){
+            $.ajax({
+                url: '/healthRecord/update',
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(data.field),
+                success: function(res){
+                    layer.msg('修改成功', {icon: 1});
+                },
+                error: function(){
+                    layer.msg('修改失败', {icon: 2});
+                }
+            });
+            return false;
+        });
+
+        // 删除记录
+        form.on('submit(delete)', function(data){
+// 替换原来的删除确认代码
+            layer.confirm('<div style="padding:20px;font-size:16px;color:#333">确定要删除这条体检记录吗？<br><small style="color:#999">删除后将无法恢复</small></div>', {
+                title: '<i class="layui-icon layui-icon-auz" style="color:#1E9FFF"></i> 删除确认',
+                skin: 'layui-layer-lan',
+                anim: 6, // 缩放动画
+                btn: ['<span style="color:#fff;background:#1E9FFF">永久删除</span>', '<span style="color:#666">再想想</span>'],
+                btnAlign: 'c',
+                closeBtn: 1,
+                icon: 0,
+                shade: 0.5
+            }, function(index){
+                $.ajax({
+                    url: '/healthRecord/' + data.field.recordId,
+                    type: 'DELETE',
+                    success: function(res){
+                        layer.msg(res ? '<span style="color:#5FB878">✓ 记录已删除</span>' : '<span style="color:#FF5722">✗ 删除失败</span>', {
+                            time: 2000,
+                            skin: 'msg-success',
+                            shade: 0.3
+                        });
+                    }
+                });
+                layer.close(index);
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

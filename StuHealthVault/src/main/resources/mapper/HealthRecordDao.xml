@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liulin.system.dao.HealthRecordDao">
+    <resultMap id="BaseResultMap" type="com.liulin.system.entity.HealthRecord">
+        <id column="record_id" property="recordId" jdbcType="INTEGER"/>
+        <result column="student_id" property="studentId" jdbcType="INTEGER"/>
+        <result column="height" property="height" jdbcType="INTEGER"/>
+        <result column="weight" property="weight" jdbcType="INTEGER"/>
+        <result column="chest" property="chest" jdbcType="INTEGER"/>
+        <result column="measure_date" property="measureDate" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="queryById" resultMap="BaseResultMap">
+        SELECT record_id, student_id, height, weight, chest, measure_date
+        FROM health_record
+        WHERE record_id = #{recordId}
+    </select>
+
+    <insert id="insert" parameterType="com.liulin.system.entity.HealthRecord"
+            useGeneratedKeys="true" keyProperty="recordId">
+        INSERT INTO health_record
+            (student_id, height, weight, chest, measure_date)
+        VALUES
+            (#{studentId}, #{height}, #{weight}, #{chest}, #{measureDate})
+    </insert>
+
+    <update id="update" parameterType="com.liulin.system.entity.HealthRecord">
+        UPDATE health_record
+        <set>
+            <if test="studentId != null">student_id = #{studentId},</if>
+            <if test="height != null">height = #{height},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="chest != null">chest = #{chest},</if>
+            <if test="measureDate != null">measure_date = #{measureDate},</if>
+        </set>
+        WHERE record_id = #{recordId}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM health_record WHERE record_id = #{recordId}
+    </delete>
+</mapper>
+

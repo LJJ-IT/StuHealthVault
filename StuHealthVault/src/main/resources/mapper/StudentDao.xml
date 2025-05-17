@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liulin.system.dao.StudentDao">
+
+    <select id="queryById" resultType="com.liulin.system.entity.Student">
+        select
+          id, name, gender, age, department, class_name, phone, create_time
+        from health.student
+        where id = #{id}
+    </select>
+
+    <!-- 新增数据 -->
+    <insert id="insert" parameterType="com.liulin.system.entity.Student" useGeneratedKeys="true" keyProperty="id">
+     insert into student
+         (name, gender, age, department, class_name, phone, create_time)
+     values
+         (#{name}, #{gender}, #{age}, #{department}, #{className}, #{phone}, #{createTime})
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update" parameterType="com.liulin.system.entity.Student">
+        UPDATE student
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="department != null">department = #{department},</if>
+            <if test="className != null">class_name = #{className},</if>
+            <if test="phone != null">phone = #{phone},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 通过主键删除 -->
+    <delete id="deleteById">
+        DELETE FROM student WHERE id = #{id}
+    </delete>
+</mapper>
+

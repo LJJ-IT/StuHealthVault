@@ -14,9 +14,9 @@ public class StudentController {
     @Resource
     private StudentService studentService;
 
-    @GetMapping("/{id}")
-    public Student getById(@PathVariable Integer id) {
-        return studentService.queryById(id);
+    @GetMapping("/{name}")
+    public Student getById(@PathVariable String name) {
+        return studentService.queryById(name);
     }
 
     @DeleteMapping("/{id}")

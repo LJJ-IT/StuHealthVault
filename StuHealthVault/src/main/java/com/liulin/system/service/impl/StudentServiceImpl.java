@@ -16,12 +16,12 @@ public class StudentServiceImpl implements StudentService {
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
+     * @param name
      * @return 实例对象
      */
     @Override
-    public Student queryById(Integer id) {
-        return studentDao.queryById(id);
+    public Student queryById(String name) {
+        return studentDao.queryById(name);
     }
 
     /**
@@ -45,7 +45,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student update(Student student) {
         studentDao.update(student);
-        return queryById(student.getId());
+        return queryById(student.getName());
     }
 
     /**

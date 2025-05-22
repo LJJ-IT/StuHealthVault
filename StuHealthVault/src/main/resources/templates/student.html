@@ -25,9 +25,9 @@
                             <div class="layui-tab-item layui-show">
                                 <form class="layui-form">
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label">学生ID</label>
+                                        <label class="layui-form-label">学生姓名</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="id" required lay-verify="required" placeholder="请输入学生ID" class="layui-input">
+                                            <input type="text" name="name" required lay-verify="required" placeholder="请输入学生姓名" class="layui-input">
                                         </div>
                                         <button class="layui-btn" lay-submit lay-filter="search">查询</button>
                                     </div>
@@ -198,7 +198,7 @@
         // 查询学生
         form.on('submit(search)', function(data){
             $.ajax({
-                url: '/student/' + data.field.id,
+                url: '/student/' + data.field.name,
                 type: 'GET',
                 success: function(res){
                     if(res) {

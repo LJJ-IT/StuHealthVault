@@ -3,10 +3,10 @@
 <mapper namespace="com.liulin.system.dao.StudentDao">
 
     <select id="queryById" resultType="com.liulin.system.entity.Student">
-        select
-          id, name, gender, age, department, class_name, phone, create_time
-        from health.student
-        where id = #{id}
+        SELECT
+            id, name, gender, age, department, class_name, phone, create_time
+        FROM health.student
+        WHERE name LIKE CONCAT('%', #{name}, '%')
     </select>
 
     <!-- 新增数据 -->

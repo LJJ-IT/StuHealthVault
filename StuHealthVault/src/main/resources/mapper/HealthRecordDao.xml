@@ -13,7 +13,7 @@
     <select id="queryById" resultMap="BaseResultMap">
         SELECT record_id, student_id, height, weight, chest, measure_date
         FROM health_record
-        WHERE record_id = #{recordId}
+        WHERE student_id = #{recordId}
     </select>
 
     <insert id="insert" parameterType="com.liulin.system.entity.HealthRecord"

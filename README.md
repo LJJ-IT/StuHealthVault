@@ -1,4 +1,5 @@
 # 合肥大学数据库程序设计报告
+合肥大学
 原作者地址：
 https://gitee.com/LIULIN12345/database-course-design
 本人魔改该人的课设，感谢分享
